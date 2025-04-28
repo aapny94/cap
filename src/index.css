@@ -69,7 +69,7 @@ body {
 }
 
 .login {
-  background-image: url("/Users/putranaaim/Desktop/conceptureAdminPanel/cap/src/assets/pages login.png");
+  background-image: url("./assets/pages login.png");
   background-size: cover;
   background-position: bottom;
   color: var(--color-white);
