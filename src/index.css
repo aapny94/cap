@@ -1,0 +1,594 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 14px;
+  flex-direction: column;
+  flex: 1;
+  --color-blue: #5080ff;
+  --color-secondary: #f7f7f7;
+  --color-gray-2: #a4a4a4;
+  --color-gray-3: #f6f6f66a;
+  --color-gray-4: #e6e6e6;
+
+  --color-success: #28a745;
+  --color-danger: #dc3545;
+  --color-warning: #ffc107;
+  --color-info: #17a2b8;
+  --color-light: #f8f9fa;
+  --color-dark: #343a40;
+  --color-white: #fff;
+  --color-black: #141414;
+  --color-gray: #6c757d;
+  --color-error: #ffcccc;
+  --color-alert: #ffe798;
+  --color-light-gray: #e8e8e8;
+}
+/* WebKit browsers */
+::-webkit-scrollbar {
+  width: 0.2rem;
+  height: 0.2rem;
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+  border-radius: 0.2rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray);
+  border-radius: 0.2rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+form {
+  width: 100%;
+  text-align: center;
+}
+
+.displayFlex {
+  display: flex;
+  flex: 1;
+}
+
+body {
+  display: flex;
+  padding: 0px;
+  margin: 0px;
+  flex: 1;
+  height: 100vh;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.login {
+  background-image: url("/Users/putranaaim/Desktop/conceptureAdminPanel/cap/src/assets/pages login.png");
+  background-size: cover;
+  background-position: bottom;
+  color: var(--color-white);
+}
+
+.login .version {
+  margin: auto;
+  padding-bottom: 2rem;
+}
+
+.login .form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  margin: auto;
+  width: 40rem;
+  padding: 0px 20px;
+}
+
+.login .form img {
+  width: 60%;
+}
+
+.login .form h2 {
+  font-size: 3rem;
+  margin: 3rem 2rem;
+  text-align: center;
+}
+/* MUI Input styling CSS Changes method  */
+
+.inputLogin {
+  width: 55%;
+  border-radius: 4rem !important ;
+  margin-bottom: 1rem !important;
+}
+
+.inputLogin .MuiOutlinedInput-root {
+  border-radius: 1rem;
+}
+
+.inputLogin .MuiOutlinedInput-notchedOutline {
+  border-color: var(--color-gray-2);
+}
+
+.inputLogin .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--color-gray) !important;
+}
+
+.inputLogin .MuiInputLabel-root.Mui-focused {
+  color: var(--color-gray) !important;
+}
+
+.inputLogin label {
+  color: var(--color-gray-2);
+}
+
+.inputLogin input {
+  color: var(--color-secondary);
+}
+
+/* MUI Input styling CSS Changes method  */
+
+/* MUI Button styling CSS Changes method  */
+
+.btnLogin {
+  margin-top: 3rem !important;
+  width: 55%;
+  background-color: var(--color-gray-2) !important;
+  padding: 0.9rem !important;
+  color: var(--color-black) !important;
+  font-size: 1rem !important;
+  border-radius: 1rem !important;
+  transition: all 0.3s ease-in-out;
+  text-transform: capitalize !important;
+}
+
+.btnLogin:hover {
+  background-color: var(--color-gray) !important;
+  color: var(--color-white) !important;
+}
+
+/* MUI Button styling CSS Changes method  */
+
+.layoutPage {
+  display: flex;
+  flex: 1;
+  padding: 0.5rem;
+}
+
+.menu {
+  padding: 1rem;
+  background: var(--color-black);
+  color: var(--color-white);
+  width: 18rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1.5rem;
+  filter: drop-shadow(8px 8px 8px #939393);
+}
+
+.mainPage {
+  margin: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainPage .header {
+  height: 7rem;
+  padding: 1rem;
+  padding-left: 2rem;
+}
+
+.mainPage .header h1 {
+  font-size: 2.5rem;
+  margin: 0px;
+}
+
+.mainPage .header p {
+  font-size: 1.3rem;
+  margin: 0px;
+}
+
+.mainPage .mainContent {
+  flex: 1;
+  padding-top: 0px;
+  padding-left: 2rem;
+  display: flex;
+  max-width: 1920px;
+  width: 99%;
+  overflow: auto;
+
+}
+
+.menu .logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  padding-top: 3rem;
+}
+
+.menu .logoContainer img {
+  width: 100%;
+}
+
+.menu .menuSectionTop {
+  display: flex;
+  width: 80%;
+  margin: auto;
+  flex: 1;
+  margin-right: 1.2rem;
+  flex-direction: column;
+}
+
+.menu .menuSectionBottom {
+  display: flex;
+  width: 80%;
+  margin: auto;
+  margin-right: 1.2rem;
+
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+/* MUI Menu Button styling CSS Changes method  */
+
+.navActive .menuBtn {
+  background-color: var(--color-black) !important;
+  color: var(--color-gray) !important;
+}
+
+.navActive .menuBtn::after {
+  content: "";
+  display: block;
+  position: absolute;
+  right: -15px;
+  width: 7px;
+  height: 7px;
+  margin: 7px;
+  border-radius: 50%;
+  background-color: var(--color-white) !important;
+}
+
+.menuBtn {
+  padding: 0.9rem !important;
+  align-self: start;
+  color: var(--color-white) !important;
+  font-size: 1rem !important;
+  border-radius: 1rem !important;
+  font-weight: 400 !important;
+  transition: all 0.3s ease-in-out;
+  text-transform: capitalize !important;
+}
+
+.menuBtn svg {
+  margin-right: 1rem;
+}
+
+.menuBtn:hover {
+  background-color: var(--color-black) !important;
+  color: var(--color-gray) !important;
+}
+
+/* MUI Menu Button styling CSS Changes method  */
+
+.contentFlex {
+  display: flex;
+  flex: 1;
+  gap: 1rem;
+
+}
+
+.contentFlex .contentItem {
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+  display: flex;
+  padding: .5rem;
+}
+
+.listMui {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: auto;
+}
+
+.contentItem .box {
+  padding: 5rem;
+  padding-top: 3rem;
+  background-color: var(--color-white);
+  border-radius: 2rem;
+  margin-bottom: 1rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.box form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.box form .userBtn {
+  margin-top: 2rem !important;
+  margin-bottom: 2rem;
+  padding-left: 5rem !important;
+  padding-right: 5rem !important;
+}
+
+.listItem {
+  transition: all 0.3s ease-in-out;
+  border-radius: 1rem !important;
+}
+
+.listItem:hover {
+  cursor: pointer;
+  opacity: 80%;
+  background-color: var(--color-light-gray);
+}
+
+.name {
+  font-size: 1.5rem !important;
+}
+
+.flexOveride2 {
+  flex: 2 !important;
+}
+
+/* MUI Menu Button styling CSS Changes method  */
+
+.userBtn {
+  padding: 1rem !important;
+
+  align-self: start;
+  color: var(--color-white) !important;
+  font-size: 1rem !important;
+  border-radius: 0.6rem !important;
+  font-weight: 400 !important;
+  transition: all 0.3s ease-in-out;
+  text-transform: capitalize !important;
+  width: fit-content !important;
+  margin: auto !important;
+  background-color: var(--color-black) !important;
+}
+
+.userBtn svg {
+  margin-right: 1rem;
+}
+
+.userBtn:hover {
+  background-color: var(--color-gray) !important;
+  color: var(--color-white) !important;
+}
+
+/* MUI Menu Button styling CSS Changes method  */
+
+.menuList .MuiPaper-root {
+  border-radius: 1rem;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+  width: 200px;
+}
+
+.editUserForm {
+  display: flex;
+  flex: 1;
+}
+
+.editUserForm form {
+  display: flex;
+  flex: 1;
+  gap: 1rem;
+  width: 100%;
+}
+
+.editUserForm form div {
+  flex: 4;
+  gap: 1rem;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.editUserForm form .userBtn {
+  flex: 3;
+}
+
+.editUserForm form div .MuiOutlinedInput-root input {
+  padding-left: 3rem !important;
+}
+
+.formCreateLead {
+  display: flex;
+  flex: 1;
+  gap: 1rem;
+}
+
+.formCreateLead .formLeft {
+  flex: 1;
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.formCreateLead .formRight {
+  flex: 1;
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.agents span {
+  padding: 0.5rem !important;
+  font-size: 1rem !important;
+}
+.leadsRightSection {
+  flex: 1.5;
+  flex-direction: column;
+  position: relative;
+  padding-top: 4rem;
+}
+
+.leadsRightSection .childItem1 {
+  position: absolute;
+  right: 1.5rem;
+  top: 0px;
+}
+
+.userBtn .css-1sh91j5-MuiButton-startIcon {
+  margin-right: -5px !important;
+  margin-left: 0px !important;
+}
+
+
+
+
+.customerDetails .header {
+  display: flex;
+  gap: 1rem;
+  padding: 0px;
+  height: fit-content;
+}
+
+.customerDetails .header h2 {
+  font-size: 2rem;
+  text-transform: capitalize;
+  margin-top: -.1rem;
+}
+
+.customerDetails .header svg {
+  font-size: 3rem;
+}
+
+
+.customerDetails .detailsItem {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+
+}
+
+.customerDetails p {
+  margin: 0px;
+
+}
+
+.customerDetails p span {
+  font-weight: 600;
+}
+
+.customerDetails .detailsItem .row {
+  display: flex;
+  gap: 1rem;
+
+}
+.customerDetails .remark {
+  margin-top: 2rem;
+  flex-direction: column;
+  height: 17rem;
+  overflow: auto;
+
+}
+
+.customerDetails .remark span {
+  font-size: 1rem;
+  padding: 1rem;
+  margin: 0px;
+  flex: 1;
+  height: 5rem;
+
+  border-radius: 1rem;
+  border: solid .5px var(--color-light-gray);
+}
+
+
+.customerDetails .remark .no-info {
+  font-size: 1.2rem;
+  width: 99%;
+  text-align: center;
+  padding-top: 6rem;
+  flex: 1;
+  height: 4rem;
+  color: var(--color-gray);
+  border-radius: 1rem;
+  background-color: var(--color-secondary);
+  border: solid .5px var(--color-light-gray);
+}
+
+
+.noActiveLeads {
+  width: 99%;
+  background-color: var(--color-gray-3);
+  height: 96%;
+  border: solid .5px var(--color-gray-4);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  border-radius: 2rem;
+}
+
+.table {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.topTable {
+  display: flex;
+}
+
+.topTable h2 {
+  flex: 1;
+}
+
+
+.tableCap {
+  display: flex;
+}
+
+.tableCap th {
+  background-color: var(--color-black) ; 
+  color: var(--color-white);
+
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.tableCap tr {
+  cursor: pointer;
+}
+
+.tableContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  border-bottom: 1px solid var(--color-light-gray);
+  box-shadow: none !important;
+}
+
+.tableContainer tbody {
+  flex: 1;
+  overflow: auto;
+  height: 100%;
+}
+
+
+
+.noData {
+  height: 100%;
+  padding: 23rem;
+  background-color: #f1f1f1;
+}
