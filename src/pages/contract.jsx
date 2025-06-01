@@ -44,16 +44,18 @@ const DraggableRow = ({
   handleEdit,
   handleDelete,
   handleRowClick,
+  isEditMode,
 }) => {
   const [, ref] = useDrag({
     type: ItemType.ROW,
     item: { index },
+    canDrag: isEditMode, // <-- Only draggable when in edit mode
   });
 
   const [, drop] = useDrop({
     accept: ItemType.ROW,
     hover: (draggedItem) => {
-      if (draggedItem.index !== index) {
+      if (draggedItem.index !== index && isEditMode) {
         moveRow(draggedItem.index, index);
         draggedItem.index = index;
       }
@@ -62,12 +64,8 @@ const DraggableRow = ({
 
   return (
     <TableRow ref={(node) => ref(drop(node))} hover>
-      {/* Column 1: Drag handle - No click event */}
-      <TableCell>
-        <DragIndicatorIcon />
-      </TableCell>
-
-      {/* Column 2, 3, 4: Clickable for row navigation */}
+      {/* Drag handle can be disabled too */}
+      <TableCell>{isEditMode ? <DragIndicatorIcon /> : null}</TableCell>
       <TableCell
         onClick={() => handleRowClick(contract)}
         style={{ cursor: "pointer" }}
@@ -86,13 +84,19 @@ const DraggableRow = ({
       >
         {contract.notes}
       </TableCell>
-
-      {/* Column 5: Action buttons - No row click event */}
       <TableCell align="right">
-        <IconButton aria-label="edit" onClick={() => handleEdit(contract)}>
+        <IconButton
+          aria-label="edit"
+          onClick={() => handleEdit(contract)}
+          disabled={isEditMode}
+        >
           <EditIcon />
         </IconButton>
-        <IconButton aria-label="delete" onClick={() => handleDelete(contract)}>
+        <IconButton
+          aria-label="delete"
+          onClick={() => handleDelete(contract)}
+          disabled={isEditMode}
+        >
           <DeleteIcon />
         </IconButton>
       </TableCell>
@@ -113,8 +117,36 @@ const Contract = () => {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
 
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [originalOrder, setOriginalOrder] = useState([]);
+
   // Inside Contract Component
   const navigate = useNavigate();
+
+  const handleEnterEditMode = () => {
+    setOriginalOrder([...contractTypes]); // Save original order
+    setIsEditMode(true);
+  };
+
+  const handleSaveOrder = async () => {
+    const updates = contractTypes.map((contract, index) => ({
+      id: contract.id,
+      newPosition: index + 1,
+    }));
+
+    try {
+      await axios.put(API_UPDATE_CONTRACT_TYPE_POSITIONS, { updates });
+      console.log("Positions updated successfully");
+      setIsEditMode(false);
+    } catch (error) {
+      console.error("Error updating contract type positions:", error);
+    }
+  };
+
+  const handleCancelEditMode = () => {
+    setContractTypes(originalOrder); // Revert to original order
+    setIsEditMode(false);
+  };
 
   const handleRowClick = (contract) => {
     navigate(`/main/contract/${contract.id}`);
@@ -272,10 +304,11 @@ const Contract = () => {
         key={contract.id}
         index={index}
         contract={contract}
-        moveRow={moveRow}
+        moveRow={isEditMode ? moveRow : () => {}} // Only allow dragging if in edit mode
         handleEdit={handleEdit}
         handleDelete={handleDelete}
         handleRowClick={handleRowClick}
+        isEditMode={isEditMode}
       />
     ));
   };
@@ -284,18 +317,59 @@ const Contract = () => {
     <DndProvider backend={HTML5Backend}>
       <div style={{ flex: 1, display: "flex", maxWidth: "99%" }}>
         <div className="table">
-          <div className="topTable">
+          <div
+            className="topTable"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <h2>All Contracts</h2>
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<AddIcon />}
-              onClick={handleAddNew}
-              className="userBtn"
-            >
-              Add New
-            </Button>
+            <div style={{ display: "flex", gap: "8px" }}>
+              <Button
+                variant="contained"
+                color="success"
+                startIcon={<AddIcon />}
+                onClick={handleAddNew}
+                className="userBtn"
+              >
+                Add New
+              </Button>
+
+              {!isEditMode ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  startIcon={<EditIcon />}
+                  onClick={handleEnterEditMode}
+                  className="userBtn"
+                >
+                  Edit Order
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSaveOrder}
+                    className="userBtn"
+                  >
+                    Save Order
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    onClick={handleCancelEditMode}
+                    className="userBtn"
+                  >
+                    Cancel
+                  </Button>
+                </>
+              )}
+            </div>
           </div>
+
           <TableContainer component={Paper} className="tableContainer">
             <Table className="tableCap">
               <TableHead>

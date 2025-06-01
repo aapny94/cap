@@ -41,13 +41,31 @@ const ContractItem = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchContractTypeName = async () => {
+      try {
+        const response = await axios.get(
+          `${API_GET_CONTRACT_TYPE}/${contractTypeId}`
+        );
+        setContractTypeName(response.data.name); // depends on your API structure
+      } catch (error) {
+        console.error("Error fetching contract type name:", error);
+      }
+    };
+
+    if (contractTypeId) {
+      fetchContractTypeName();
+    }
+  }, [contractTypeId]);
+
+  useEffect(() => {
     const fetchContractItems = async () => {
       try {
         const response = await axios.get(
           `${API_GET_CONTRACT_ITEM}/${contractTypeId}`
         );
         const sortedData = response.data.sort(
-          (a, b) => parseInt(a.position_item, 10) - parseInt(b.position_item, 10)
+          (a, b) =>
+            parseInt(a.position_item, 10) - parseInt(b.position_item, 10)
         );
         setContractItems(sortedData);
       } catch (error) {
@@ -213,9 +231,7 @@ const ContractItem = () => {
             label="Notes"
             fullWidth
             value={newItem.notes}
-            onChange={(e) =>
-              setNewItem({ ...newItem, notes: e.target.value })
-            }
+            onChange={(e) => setNewItem({ ...newItem, notes: e.target.value })}
           />
         </DialogContent>
         <DialogActions>
@@ -265,9 +281,8 @@ const ContractItem = () => {
 
 export default ContractItem;
 
-
 // DROP Table contractitem and recreate balik and clear all data
-// position colum make as table 
+// position colum make as table
 // OR Find better solution untuk activekan dragable position change OR position change
 // API untuk update position dah clear
 // Tukar nama API untuk update position contract item

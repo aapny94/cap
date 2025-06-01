@@ -2,7 +2,7 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 13px;
   flex-direction: column;
   flex: 1;
   --color-blue: #5080ff;
@@ -158,11 +158,11 @@ body {
 .layoutPage {
   display: flex;
   flex: 1;
-  padding: 0.5rem;
+  padding: 0.2rem;
 }
 
 .menu {
-  padding: 1rem;
+  padding: .5rem;
   background: var(--color-black);
   color: var(--color-white);
   width: 18rem;
@@ -180,13 +180,15 @@ body {
 }
 
 .mainPage .header {
-  height: 7rem;
-  padding: 1rem;
-  padding-left: 2rem;
+  height: 5rem;
+  padding: .5rem ;
+  padding-top: 1rem;
+  padding-left: 1rem;
+
 }
 
 .mainPage .header h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin: 0px;
 }
 
@@ -198,7 +200,7 @@ body {
 .mainPage .mainContent {
   flex: 1;
   padding-top: 0px;
-  padding-left: 2rem;
+  padding-left: 1rem;
   display: flex;
   max-width: 1920px;
   width: 99%;
@@ -224,7 +226,6 @@ body {
   width: 80%;
   margin: auto;
   flex: 1;
-  margin-right: 1.2rem;
   flex-direction: column;
 }
 
@@ -232,7 +233,6 @@ body {
   display: flex;
   width: 80%;
   margin: auto;
-  margin-right: 1.2rem;
 
   flex-direction: column;
   margin-bottom: 1.5rem;
