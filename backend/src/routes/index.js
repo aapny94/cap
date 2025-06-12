@@ -31,7 +31,28 @@ import {
   getContractTypeByIdController,
   createNewContractItemController,
   updateContractItemController,
+  deleteContractItemController,
+  updateContractItemPositionController,
 } from "../controllers/contractController.js";
+
+import {
+  createPaymentTermController,
+  deletePaymentTermController,
+  getAllPaymentTermsByIdComtroller,
+  getAllPaymentTermsController,
+  updatePaymentTermController,
+} from "../controllers/paymentTermsController.js";
+import {
+  createServiceController,
+  createServiceItemController,
+  deleteServiceController,
+  deleteServiceItemController,
+  getAllServicesController,
+  getServiceByIdController,
+  getServiceItemsByServiceIdController,
+  updateServiceController,
+  updateServiceItemController,
+} from "../controllers/serviceController.js";
 
 const router = express.Router();
 
@@ -59,8 +80,24 @@ router.delete("/contract-types/:id", deleteContractTypeController);
 router.put("/contract-types/position", updateContractTypePositionController);
 router.get("/contracttype/:id", getContractTypeByIdController); // Define the new route
 router.post("/contractitem", createNewContractItemController);
+router.put("/contractitem/position-item", updateContractItemPositionController);
 router.put("/contractitem/:id", updateContractItemController);
+router.delete("/contractitem/:id", deleteContractItemController);
+router.get("/paymentterms", getAllPaymentTermsController);
+router.get("/paymentterms/:id", getAllPaymentTermsByIdComtroller);
+router.put("/paymentterms/:id", updatePaymentTermController);
+router.post("/paymentterms", createPaymentTermController);
+router.delete("/paymentterms/:id", deletePaymentTermController);
 
+router.get("/services", getAllServicesController);
+router.get("/services/:id", getServiceByIdController);
+router.post("/services", createServiceController);
+router.put("/services/:id", updateServiceController);
+router.delete("/services/:id", deleteServiceController); // Assuming you want to fetch a service by ID as well
+router.get("/services-items/:serviceId", getServiceItemsByServiceIdController);
+router.post("/services-items", createServiceItemController);
+router.put("/services-items/:id", updateServiceItemController); // Assuming you want to update a service item by ID
+router.delete("/services-items/:id", deleteServiceItemController); // Assuming you want to delete a service item by ID
 
 export default router;
 

@@ -14,6 +14,8 @@ import Contract from "./contract";
 import useAuth from '../useAuth'; // Import the custom hook
 import withAuthorization from "../withAuthorization";
 import ContractItem from "./contractItem";
+import PaymentTerms from "./paymentTerms";
+import ServiceItems from "./serviceItems";
 
 
  // Setting User Role Page
@@ -27,6 +29,8 @@ const SettingsWithAuth = withAuthorization(Setting, ["SuperAdmin", "Director ", 
 const Dashboard1WithAuth = withAuthorization(Dashboard1, ["SuperAdmin", "Director", "Admin", "SalesAgent"]);
 const ContractWithAuth = withAuthorization(Contract, ["SuperAdmin", "Director", "Admin"]);
 const ContractItemWithAuth = withAuthorization(ContractItem, ["SuperAdmin", "Director", "Admin"]);
+const PaymentTermsWithAuth = withAuthorization(PaymentTerms, ["SuperAdmin", "Director", "Admin"]);
+const ServiceItemsWithAuth = withAuthorization(ServiceItems, ["SuperAdmin", "Director", "Admin", "SalesAgent"]);
 
 function Main() {
 
@@ -50,9 +54,11 @@ function Main() {
               <Route exact path="/leads" element={<LeadsWithAuth />} />
               <Route exact path="/quotations" element={<QuotationsWithAuth />} />
               <Route exact path="/services" element={<ServicesWithAuth />} />
+              <Route exact path="/services/:serviceId" element={<ServiceItemsWithAuth />} />
               <Route exact path="/settings" element={<SettingsWithAuth />} />
               <Route path="/contract" element={<ContractWithAuth />} />
               <Route path="/contract/:contractTypeId" element={<ContractItemWithAuth />} />
+              <Route path="/payment-terms" element={<PaymentTermsWithAuth />} />
 
             </Routes>
           </div>

@@ -372,6 +372,29 @@ body {
   color: var(--color-white) !important;
 }
 
+
+.tableBtn {
+  padding: .6rem !important;
+
+  align-self: start;
+  color: #5b5b5b !important;
+  font-size: 1rem !important;
+  border-radius: 0.6rem !important;
+  font-weight: 400 !important;
+  transition: all 0.3s ease-in-out;
+  text-transform: capitalize !important;
+  width: fit-content !important;
+  margin: auto !important;
+  background-color: #14141400 !important;
+}
+
+.tableBtn svg {
+  margin-left: .3rem;
+}
+
+.tableBtn:hover {
+  background-color: #efefef !important;
+}
 /* MUI Menu Button styling CSS Changes method  */
 
 .menuList .MuiPaper-root {

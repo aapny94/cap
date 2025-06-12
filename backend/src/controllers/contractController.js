@@ -8,6 +8,8 @@ import {
   getContractTypeById,
   createNewContractItem,
   updateContractItem,
+  deleteContractItem,
+  updateContractItemPosition,
 } from "../models/contractModel.js";
 
 // This API will list all the contractType
@@ -39,7 +41,6 @@ export const updateContractTypeController = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 // This API will delete a contract type and its associated items
 export const deleteContractTypeController = async (req, res) => {
@@ -85,22 +86,19 @@ export const createNewContractTypeController = async (req, res) => {
   }
 };
 
-
 // Controller function to get a contract type by ID
 export const getContractTypeByIdController = async (req, res) => {
   try {
     const { id } = req.params;
     const contractType = await getContractTypeById(id);
     if (!contractType) {
-      return res.status(404).json({ message: 'Contract type not found' });
+      return res.status(404).json({ message: "Contract type not found" });
     }
     res.status(200).json(contractType);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
-
-
 
 // This API will list all the contractItem by contract_type_id
 export const listAllContractsItemByType = async (req, res) => {
@@ -114,13 +112,15 @@ export const listAllContractsItemByType = async (req, res) => {
   }
 };
 
-
-
 // This API will create a new contract item
 export const createNewContractItemController = async (req, res) => {
   try {
     const { content, contract_type_id, notes } = req.body;
-    const newContractItem = await createNewContractItem(content, contract_type_id, notes);
+    const newContractItem = await createNewContractItem(
+      content,
+      contract_type_id,
+      notes
+    );
     res.status(201).json(newContractItem);
   } catch (error) {
     console.error(error);
@@ -128,18 +128,55 @@ export const createNewContractItemController = async (req, res) => {
   }
 };
 
-
-
 // This API will update a contract item
 export const updateContractItemController = async (req, res) => {
   try {
     const { id } = req.params;
-    const { content, notes } = req.body;
-    const updatedContractItem = await updateContractItem(id, content, notes);
+    const { content, notes, position_item } = req.body;
+
+    if (!id || isNaN(Number(id))) {
+      return res.status(400).json({ error: "Invalid or missing ID" });
+    }
+
+    const updatedContractItem = await updateContractItem(id, content, notes, position_item);
     res.status(200).json(updatedContractItem);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
 };
+
+
+// This API will delete a contract type and its associated items
+export const deleteContractItemController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedContractType = await deleteContractItem(id);
+    res.status(200).json(deletedContractType);
+  } catch (error) {
+    console.error("Error in deleteContractItemController:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const updateContractItemPositionController = async (req, res) => {
+  try {
+
+
+    const { updates } = req.body;
+
+    if (!Array.isArray(updates) || updates.length === 0) {
+      console.error("Validation Failed: updates not valid array", updates);
+      return res.status(400).json({ error: "Invalid updates format" });
+    }
+
+    await updateContractItemPosition(updates);
+
+    res.status(200).json({ message: "Positions updated successfully" });
+  } catch (error) {
+    console.error("Error updating contract item positions:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+};
+
 

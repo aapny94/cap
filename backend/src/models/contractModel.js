@@ -1,7 +1,9 @@
 import pool from "../config/db.js";
 
 export const getAllContractsType = async () => {
-  const { rows } = await pool.query("SELECT * FROM contracttype ORDER BY position ASC");
+  const { rows } = await pool.query(
+    "SELECT * FROM contracttype ORDER BY position ASC"
+  );
   return rows;
 };
 
@@ -20,8 +22,6 @@ export const createNewContractType = async (name, notes) => {
   return rows[0];
 };
 
-
-
 // Function to update only the name and notes of an existing contract type
 export const updateContractType = async (id, name, notes) => {
   const { rows } = await pool.query(
@@ -38,7 +38,9 @@ export const deleteContractType = async (id) => {
     await client.query("BEGIN");
 
     // Delete related items first
-    await client.query("DELETE FROM contractitem WHERE contract_type_id = $1", [id]);
+    await client.query("DELETE FROM contractitem WHERE contract_type_id = $1", [
+      id,
+    ]);
 
     // Delete the contract type and get the deleted row
     const { rows: deletedRows } = await client.query(
@@ -80,15 +82,13 @@ export const deleteContractType = async (id) => {
 // Function to update the positions of contract types in a single transaction
 export const updateContractTypePositions = async (updates) => {
   const updateQueries = updates.map((update) =>
-    pool.query(
-      "UPDATE contracttype SET position = $1 WHERE id = $2",
-      [update.newPosition, update.id]
-    )
+    pool.query("UPDATE contracttype SET position = $1 WHERE id = $2", [
+      update.newPosition,
+      update.id,
+    ])
   );
   await Promise.all(updateQueries);
 };
-
-
 
 // Function to get a contract type by ID
 export const getContractTypeById = async (id) => {
@@ -99,14 +99,14 @@ export const getContractTypeById = async (id) => {
   return rows[0];
 };
 
-
-
-
-
 // Function to create a new contract item
-export const createNewContractItem = async (content, contract_type_id, notes) => {
+export const createNewContractItem = async (
+  content,
+  contract_type_id,
+  notes
+) => {
   const { rows: positionRows } = await pool.query(
-    "SELECT COALESCE(MAX(position_item), 0) + 1 AS next_position FROM contractitem WHERE contract_type_id = $1",
+    "SELECT COALESCE(MAX(position_item::INTEGER), 0) + 1 AS next_position FROM contractitem WHERE contract_type_id = $1",
     [contract_type_id]
   );
 
@@ -119,7 +119,6 @@ export const createNewContractItem = async (content, contract_type_id, notes) =>
   return rows[0];
 };
 
-
 export const getContractsItemByType = async (contract_type_id) => {
   const { rows } = await pool.query(
     "SELECT * FROM contractitem WHERE contract_type_id = $1 ORDER BY position_item::INTEGER",
@@ -129,11 +128,41 @@ export const getContractsItemByType = async (contract_type_id) => {
 };
 
 // Function to update a contract item
-export const updateContractItem = async (id, content, notes) => {
-  const { rows } = await pool.query(
-    "UPDATE contractitem SET content = $1, notes = $2 WHERE id = $3 RETURNING *",
-    [content, notes, id]
-  );
-  return rows[0];
+export const updateContractItem = async (id, content, notes, position_item) => {
+  const intId = parseInt(id, 10);
+
+  if (isNaN(intId)) {
+    throw new Error(`Invalid ID: ${id}`);
+  }
+
+  const query = `
+  UPDATE contractitem
+  SET content = $1, notes = $2, position_item = COALESCE($3, position_item)
+  WHERE id = $4
+  RETURNING *;
+`;
+  const values = [content, notes, position_item, intId];
+
+  const result = await pool.query(query, values);
+  return result.rows[0];
 };
 
+// Function to delete a contract item
+export const deleteContractItem = async (id) => {
+  const { rows: deletedRows } = await pool.query(
+    "DELETE FROM contractitem WHERE id = $1 RETURNING *",
+    [id]
+  );
+  return deletedRows[0];
+};
+
+export const updateContractItemPosition = async (updates) => {
+  const updateQueries = updates.map((update) =>
+    pool.query("UPDATE contractitem SET position_item = $1 WHERE id = $2", [
+      update.newPosition,
+      update.id,
+    ])
+  );
+
+  await Promise.all(updateQueries);
+};

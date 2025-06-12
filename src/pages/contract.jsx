@@ -31,6 +31,8 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const ItemType = {
   ROW: "row",
@@ -327,41 +329,44 @@ const Contract = () => {
           >
             <h2>All Contracts</h2>
             <div style={{ display: "flex", gap: "8px" }}>
-              <Button
-                variant="contained"
-                color="success"
-                startIcon={<AddIcon />}
-                onClick={handleAddNew}
-                className="userBtn"
-              >
-                Add New
-              </Button>
-
+              {!isEditMode && (
+                <Button
+                  variant="text"
+                  color="success"
+                  startIcon={<AddIcon />}
+                  onClick={handleAddNew}
+                  className="tableBtn"
+                >
+                  Add New
+                </Button>
+              )}
               {!isEditMode ? (
                 <Button
-                  variant="contained"
+                  variant="text"
                   color="primary"
                   startIcon={<EditIcon />}
                   onClick={handleEnterEditMode}
-                  className="userBtn"
+                  className="tableBtn"
                 >
                   Edit Order
                 </Button>
               ) : (
                 <>
                   <Button
-                    variant="contained"
+                    variant="text"
                     color="primary"
+                    startIcon={<CheckIcon />} // <-- Save Icon
                     onClick={handleSaveOrder}
-                    className="userBtn"
+                    className="tableBtn"
                   >
                     Save Order
                   </Button>
                   <Button
-                    variant="outlined"
+                    variant="text"
                     color="secondary"
+                    startIcon={<ClearIcon />} // <-- Cancel Icon
                     onClick={handleCancelEditMode}
-                    className="userBtn"
+                    className="tableBtn"
                   >
                     Cancel
                   </Button>
@@ -444,10 +449,10 @@ const Contract = () => {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleEditClose} color="primary">
+            <Button onClick={handleEditClose} sx={{ color: "red" }}>
               Cancel
             </Button>
-            <Button onClick={handleUpdate} color="primary">
+            <Button onClick={handleUpdate} sx={{ color: "red" }}>
               Save
             </Button>
           </DialogActions>
@@ -458,10 +463,10 @@ const Contract = () => {
             Are you sure you want to delete the contract "{deleteTarget?.name}"?
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCancelDelete} color="primary">
+            <Button onClick={handleCancelDelete} sx={{ color: "red" }}>
               Cancel
             </Button>
-            <Button onClick={handleConfirmDelete} color="secondary">
+            <Button onClick={handleConfirmDelete} sx={{ color: "red" }}>
               Confirm
             </Button>
           </DialogActions>
