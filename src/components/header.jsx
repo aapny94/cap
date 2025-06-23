@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
-import axios from "axios";
-import { API_GET_USER } from "../apiConfig"; // Import the API endpoint
+import { account } from "../services/appwrite"; // Appwrite SDK instance
 
 function Header() {
   const location = useLocation();
-
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState("");
 
   const getPageTitle = (path) => {
     switch (true) {
       case /^\/main\/dashboard-1/.test(path):
-        return "Dashboard";
       case /^\/main\/dashboard-2/.test(path):
         return "Dashboard";
       case /^\/main\/user-management/.test(path):
@@ -35,33 +33,18 @@ function Header() {
     }
   };
 
-  const [user, setUser] = useState(null);
-  const [error, setError] = useState("");
-
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchAppwriteUser = async () => {
       try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          setError("No token found");
-          return;
-        }
-
-        const decodedToken = jwtDecode(token); // Decode the token to get the userId
-        const userId = decodedToken.userId;
-        const response = await axios.get(`${API_GET_USER}/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setUser(response.data);
+        const user = await account.get();
+        setUser(user);
       } catch (err) {
-        setError("Failed to fetch user data");
+        console.error("Error fetching user:", err);
+        setError("Failed to load user session.");
       }
     };
 
-    fetchUser();
+    fetchAppwriteUser();
   }, []);
 
   if (error) {
@@ -72,19 +55,23 @@ function Header() {
     return <p>Loading...</p>;
   }
 
+  // Get name and split into first/last
+  const nameParts = user.name?.split(" ") || [];
+  const firstName = nameParts[0] || "";
+  const lastName = nameParts.slice(1).join(" ");
+
   return (
     <>
       <h1>{getPageTitle(location.pathname)}</h1>
       <p>
         Welcome,{" "}
         <strong>
-          {user.first_name} {user.last_name}!
+          {firstName} {lastName}
         </strong>
+        !
       </p>
     </>
   );
 }
 
 export default Header;
-
-// here need to comeback for p strong will change depending on the user login username //

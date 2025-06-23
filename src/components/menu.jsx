@@ -5,18 +5,25 @@ import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import LockIcon from "@mui/icons-material/Lock";
 import { useNavigate, NavLink, useLocation } from "react-router-dom";
 import menuConfig from "../components/menuConfig"; // Import the configuration object
+import { account } from "../services/appwrite"; // Adjust path as needed
 
 function Menu() {
   const navigate = useNavigate();
   const location = useLocation(); // Get the current location
   const userRole = localStorage.getItem("userRole"); // Retrieve user role from localStorage
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userRole");
-    navigate("/");
-  };
+const handleLogout = async () => {
+  try {
+    await account.deleteSession("current"); // Clean up Appwrite session
+  } catch (err) {
+    console.warn("Appwrite session cleanup failed:", err.message);
+  }
 
+  localStorage.removeItem("token");
+  localStorage.removeItem("userRole");
+  localStorage.removeItem("appwriteUserId"); // optional cleanup
+  navigate("/");
+};
   return (
     <>
       <div className="logoContainer">

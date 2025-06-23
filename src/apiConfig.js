@@ -1,6 +1,7 @@
 
 
 const BASE_URL =  "http://localhost:3001/api";
+const APPWRITE_BASE_URL = "http://46.250.239.167:9404/v1/functions"; // Add the base URL for Appwrite API
 
 export const API_POST_LOGIN = `${BASE_URL}/login`; // api to login user //
 export const API_POST_REGISTER = `${BASE_URL}/register`; // Add the endpoint for registering a new user
@@ -44,3 +45,6 @@ export const API_DELETE_CONTRACT_ITEM = `${BASE_URL}/contractitem`; // Add the e
 export const API_DELETE_PAYMENT_TERM = `${BASE_URL}/paymentterms`; // Add the endpoint for deleting a payment term
 export const API_DELETE_SERVICE = `${BASE_URL}/services`; // Add the endpoint for deleting a service
 export const API_DELETE_SERVICE_ITEM = `${BASE_URL}/services-items`; // Add the endpoint for deleting a service item
+
+export const API_GET_AUTH_USERS = `${APPWRITE_BASE_URL}/6854f382000e89982c6f/executions`; // Add the endpoint for fetching authenticated users
+export const API_CREATE_USER =  `${APPWRITE_BASE_URL}/68590178001054bcbfb0/executions` ; // Add the endpoint for user management functions
