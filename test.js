@@ -13,6 +13,8 @@ steps
 7. npm install\
 8. git pull origin {nama branch} -ini untuk sync dengan team
 
+9. hifzhan noob
+
   remotes/origin/HEAD -> origin/main
   remotes/origin/development
   remotes/origin/main
