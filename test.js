@@ -1,0 +1,21 @@
+
+
+
+
+steps
+
+1. minta izin owner repor
+2. git clone {url repo}
+3. cd {nama folder repo}
+4. git fetch --all
+5. git branch -a
+6. git checkout {nama branch}
+7. npm install
+
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/development
+  remotes/origin/main
+  remotes/origin/staging
+
+
+  Development - Staging - Production
