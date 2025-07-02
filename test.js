@@ -10,7 +10,8 @@ steps
 4. git fetch --all
 5. git branch -a
 6. git checkout {nama branch}
-7. npm install
+7. npm install\
+8. git pull origin {nama branch} -ini untuk sync dengan team
 
   remotes/origin/HEAD -> origin/main
   remotes/origin/development
