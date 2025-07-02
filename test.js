@@ -12,6 +12,8 @@ steps
 6. git checkout {nama branch}
 7. npm install
 
+9. hifzhan noob
+
   remotes/origin/HEAD -> origin/main
   remotes/origin/development
   remotes/origin/main
