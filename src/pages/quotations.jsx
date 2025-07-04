@@ -1,14 +1,25 @@
 import React from "react";
 
 function Quotations() {
-    return (
-        <>
-        <h1>Quotations</h1>
-        <p>
-            Welcome, <strong>Diego!</strong>
-        </p>
-        </>
-    );
+  return (
+    <>
+      <div style={{ flex: 1, display: "flex", maxWidth: "99%" }}>
+        <div className="table">
+          <div
+            className="topTable"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <h2>All Quotations List</h2>
+          </div>
+
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default Quotations;
