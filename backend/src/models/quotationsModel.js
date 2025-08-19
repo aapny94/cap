@@ -11,6 +11,15 @@ export const getQuotationById = async (id) => {
   return rows[0];
 };
 
+export const getQuotationsByUsername = async (username) => {
+  const { rows } = await pool.query(
+    "SELECT * FROM quotations WHERE agents = $1 ORDER BY created_at DESC",
+    [username]
+  );
+  return rows;
+};
+
+
 export const createQuotation = async (quotation) => {
   const { rows } = await pool.query(
     "INSERT INTO quotations (lead_id, user_id, status, total_amount) VALUES ($1, $2, $3, $4) RETURNING *",

@@ -97,7 +97,7 @@ export const loginUser = async (req, res) => {
       expiresIn: "3h",
     });
 
-    res.json({ token, user_role: user.user_role, user_id: user.id }); // Include user_id in the response
+    res.json({ token, user_role: user.user_role, user_id: user.id, username: user.username }); // Include user_id in the response
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });

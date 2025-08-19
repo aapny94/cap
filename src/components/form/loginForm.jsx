@@ -33,9 +33,13 @@ function LoginForm() {
         identifier,
         password,
       });
-      const { token, user_role, user_id } = response.data; // Assuming user_id is returned in the response
-      localStorage.setItem("userRole", user_role); // Store user role in localStorage
-      localStorage.setItem("userId", user_id); // Store user id in localStorage
+
+      const { token, user_role, user_id, username } = response.data;
+
+      localStorage.setItem("userRole", user_role);
+      localStorage.setItem("userId", user_id);
+      localStorage.setItem("username", username); // ✅ CORRECTED
+
       setTokenWithExpiration("token", token, 6); // Set token with 6 hours expiration
       navigate("/main/");
     } catch (err) {

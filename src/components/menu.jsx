@@ -5,25 +5,21 @@ import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import LockIcon from "@mui/icons-material/Lock";
 import { useNavigate, NavLink, useLocation } from "react-router-dom";
 import menuConfig from "../components/menuConfig"; // Import the configuration object
-import { account } from "../services/appwrite"; // Adjust path as needed
 
 function Menu() {
   const navigate = useNavigate();
-  const location = useLocation(); // Get the current location
-  const userRole = localStorage.getItem("userRole"); // Retrieve user role from localStorage
+  const location = useLocation();
 
-const handleLogout = async () => {
-  try {
-    await account.deleteSession("current"); // Clean up Appwrite session
-  } catch (err) {
-    console.warn("Appwrite session cleanup failed:", err.message);
-  }
+  const handleLogout = () => {
+    // Local session cleanup
+    localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("appwriteUserId"); // optional cleanup
+    navigate("/");
+  };
 
-  localStorage.removeItem("token");
-  localStorage.removeItem("userRole");
-  localStorage.removeItem("appwriteUserId"); // optional cleanup
-  navigate("/");
-};
+  const userRole = localStorage.getItem("userRole"); // Make sure userRole is defined
+
   return (
     <>
       <div className="logoContainer">
@@ -32,11 +28,10 @@ const handleLogout = async () => {
       <div className="menuSectionTop">
         {menuConfig.map((item) => {
           if (item.roles.includes(userRole)) {
-            // Check if the menu item should be active
             const isActive =
               item.path === "/main/"
-                ? location.pathname === "/main/" // Exact match for dashboard only
-                : location.pathname.startsWith(item.path); // Active for all other subpaths
+                ? location.pathname === "/main/"
+                : location.pathname.startsWith(item.path);
 
             return (
               <NavLink
